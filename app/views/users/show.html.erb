@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <% profile = Profile.find_by_ids(current_user.id) %>
+  Logged in as : <% if profile.name %>
+  <%= profile.name %>
+  <% else %>
+  <%= current_user.email %>
+  <%end%>
+</p>
+<%= link_to 'Log Out', logout_path %>
+<%= link_to 'Back', :back %>
+<%= link_to 'My Profile', profile_path(profile.id) %>
+<% if not current_user.student and current_user.id == params[:id].to_i%>
+	<%= link_to 'My Volunteers', my_volunteer_path, id: current_user.id %>
+	<%= link_to 'New Post', new_post_path, id: current_user.id %>
+	<h4>My Posts</h4>
+	<% if @posts.length == 0 %>
+		<p>You don't have any posts yet</p>
+	<% end %>
+	<% @posts.each do |p| %>
+		<%= link_to p.title, post_path(p) %><br>
+	<% end %>
+<% elsif current_user.id == params[:id].to_i%>
+	<%= link_to 'My Posts', posts_status_path %> 
+	<h4>Posts</h4>
+	<% count = 0 %>
+	<% if not @posts.length == 0 %>
+		<% @posts.each do |p| %> <br>
+			<% if count != p.i_id %>
+				<% profile_i = Profile.find_by_ids(p.i_id) %>
+				<% if profile_i.name %>
+					<h5><%= link_to(profile_i.name, profile_path(profile_i)) %></h5>
+				<% else %>
+					<h5><%= mail_to(User.find(p.i_id).email) %></h5>
+				<% end %>
+				<%= link_to p.title, post_path(p)%>
+				<% count = p.i_id %>
+			<% else %>
+				<%= link_to p.title, post_path(p)%>
+			<% end %>
+		<%= link_to 'Apply', apply_path(id: p.id, s_id: current_user.id) %>
+		<% end %>
+	<% else %>
+		<p>No New Posts</p>
+	<% end %>
+	
+<% end %>

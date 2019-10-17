@@ -1,0 +1,24 @@
+<h1>Testimonial</h1>
+
+<%= form_tag sessions_path do |form| %>
+  <div class=”field”>
+    <%= label_tag :date, "Month, Year" %>
+    <%= text_field_tag :date %>
+  </div>
+  <div class=”field”>
+    <%= label_tag :data, "Content" %>
+    <%= text_area_tag :content %>
+  </div>
+
+  <div class=”field”>
+    <%= hidden_field_tag :i_id, current_user.id %>
+  </div>
+
+  <div class=”field”>
+    <%= hidden_field_tag :s_id, @student %>
+  </div>
+	
+  <div class=”actions”>
+    <%= submit_tag ("Post Testimonial")%>
+  </div>
+<% end %>

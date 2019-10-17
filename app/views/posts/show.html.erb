@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Institution:</strong>
+  <% p = Profile.find_by_ids(@post.i_id) %>
+  <% if p %>
+  	<%= link_to(p.name, profile_path(p)) %>
+  <% else %> 
+	<%= mail_to(User.find(p.ids).email) %>
+  <% end %>
+	
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @post.description %>
+</p>
+
+<p>
+  <strong>Hrs per week:</strong>
+  <%= @post.hrs_per_week %>
+</p>
+
+<p>
+  <strong>Timings:</strong>
+  <%= @post.timings %>
+</p>
+
+<% if current_user.id == @post.i_id %>
+	<%= link_to 'Edit', edit_post_path(@post) %> |
+	<h4>Volunteer Applications: </h4>
+	<% if @post_statuses.length == 0 %>
+		<p>No New Applications</p>
+	<% else %>	
+		<% @post_statuses.each do |p| %>
+			<% p1 = Profile.find_by_ids(p.s_id) %>
+			<% if p1.name %>
+				<%= link_to p1.name, profile_path(p1) %> <%= link_to 'Accept', decision_path(id: p.id, status: 0) %> <%= link_to 'Reject', decision_path(id: p.id, status: 2) %> 
+			<% else %>
+				<%= mail_to(User.find(s_id).email) %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+
+
+
+

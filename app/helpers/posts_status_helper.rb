@@ -1,0 +1,2 @@
+module PostsStatusHelper
+end

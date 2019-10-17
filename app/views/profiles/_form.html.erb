@@ -1,0 +1,50 @@
+<%= form_with(model: profile, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <% if @profile.name %>
+    	<%= form.text_field :name, value: @profile.name %>
+    <% else %>
+    	<%= form.text_field :name, value: nil %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :details, "Tell us more about yourself: " %>
+    <% if @profile.details %>
+    	<%= form.text_area :details, value: @profile.details %>
+    <% else %>
+    	<%= form.text_area :details, value: nil %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :phone, "Phone" %>
+    <% if @profile.phone %>
+    	<%= form.text_field :phone, value: @profile.phone %>
+    <% else %>
+    	<%= form.text_field :phone, value: nil %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <% if @profile.email %>
+    	<%= form.text_field :email, value: @profile.email %>
+    <% else %>
+    	<%= form.text_field :email, value: nil %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :links %>
+    <% if @profile.links %>
+    	<%= form.text_area :links, value: @profile.links%>
+    <% else %>
+    	<%= form.text_area :links, placeholder: "Please enter with https:// or http://" , value: nil%>
+    <% end %>
+  </div>
+  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

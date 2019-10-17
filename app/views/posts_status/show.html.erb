@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Posts Statuses</h1>
+<% count = 0 %>
+<% decision = ["Accepted", "Pending", "Rejected"] %>
+<% if not @posts.length == 0 %>
+	<% @posts.each do |p| %> <br>
+		<% post = PostsStatus.find_by_post_id(p.id) %>
+		<% status = post.status %>
+		<% if count != p.i_id %>
+			<% profile_i = Profile.find_by_ids(p.i_id) %>
+			<% if profile_i.name %>
+				<h5><%= link_to(profile_i.name, profile_path(profile_i)) %></h5>
+			<% else %>
+				<h5><%= mail_to(User.find(p.i_id).email) %></h5>
+			<% end %>	
+			<%= link_to p.title, post_path(p)%> 
+			<%= decision[status]%>
+			<% count = p.i_id %>
+		<% else %>
+			<%= link_to p.title, post_path(p)%> 
+			<%= decision[status] %>
+		<% end %>
+		<% if status == 0 %>
+			<%= link_to 'Accept',  student_decision_path(id: post.id, status: 1)%>
+		<% end %>
+		<% if status == 0 or status == 2 %>
+			<%= link_to 'Remove', student_decision_path(id: post.id, status: 2)%>
+		<% end %>
+	<% end %>
+<% else %>
+	<p>No New Posts</p>
+<% end %>

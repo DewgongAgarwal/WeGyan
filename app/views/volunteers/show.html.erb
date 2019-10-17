@@ -1,0 +1,19 @@
+<h1>My Volunteers</h1>
+<table>
+<% if @my_volunteers.length == 0 %>
+	<tr><td>You currently don't have any volunteers</td><td>Post Requirement for Volunteers</td></tr>
+<% else %>
+	<% @my_volunteers.each do |v| %>
+		<tr>
+			<% p = Profile.find_by_ids(v.s_id) %>
+			<% if p %>
+				<td><%= link_to(p.name, profile_path(p.id)) %></td>
+			<% else %>
+				<td><%= mail_to(User.find(v.s_id).email) %></td>
+			<% end %>
+			<td><%= link_to("Give Testimonial", testimonials_new_path(student_id: p.id)) %></td>
+			<td onclick="return confirm('Are you sure?')"><%= link_to("Remove", remove_volunteer_path(v.id)) %></td>
+		</tr>
+	<% end %>
+<% end %>
+</table>

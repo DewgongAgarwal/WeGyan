@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  i_id: 1
+  s_id: 
+  description: 
+  hrs_per_week: 
+  timings: MyString
+
+two:
+  i_id: 1
+  s_id: 
+  description: 
+  hrs_per_week: 
+  timings: MyString

@@ -1,0 +1,2 @@
+class PostsStatus < ApplicationRecord
+end
